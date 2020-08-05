@@ -25,8 +25,8 @@ export function removeproductItem(productItem) {
     if (productInfoList && productInfoList.length > 0) {
         for (let i = 0; i < productInfoList.length; i++) {
             if (productInfoList[i].serial_no === productItem.serial_no) {
-                console.log("productInfoList[i].serial_no",productInfoList[i].serial_no)
-                console.log("productInfoList[i].serial_no",productItem.serial_no)
+                console.log("productInfoList[i].serial_no", productInfoList[i].serial_no)
+                console.log("productInfoList[i].serial_no", productItem.serial_no)
                 //var index = productInfoList.indexOf(i)
                 productInfoList.splice(i, 1);
                 localStorage.setItem("productInfo", JSON.stringify(productInfoList))
