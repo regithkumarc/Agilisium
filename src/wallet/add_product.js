@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, FormGroup, Input, Label, Button} from 'reactstrap'
+import {Form, FormGroup, Input, Button} from 'reactstrap'
 import DatePicker from "react-datepicker";
 import {addOrUpdateProductData} from './userFuction'
 import '../index.css'
@@ -13,7 +13,7 @@ class AddProduct extends React.Component{
         this.state = {
             startDate: new Date(),
             description : "",
-            income : "",
+            income : "Income",
             amount : "",
             summary : "",
             enableDisable : this.props.enableDisable
@@ -22,12 +22,18 @@ class AddProduct extends React.Component{
         this.onChange = this.onChange.bind(this);
         this.addProduct = this.addProduct.bind(this);
         this.cancel = this.cancel.bind(this);
+        this.dropdownChange = this.dropdownChange.bind(this);
     }
 
     onChange(e){
         this.setState({
             [e.target.name] : e.target.value
         })
+    }
+
+    dropdownChange(e){
+        console.log("e",e.target.value)
+        this.setState({income : e.target.value})
     }
 
     handleChange = date => {
@@ -84,7 +90,13 @@ class AddProduct extends React.Component{
                </FormGroup>  
                <FormGroup className="mb-3">
                {/* <Label>Type</Label> */}
-                   <Input type="text" placeholder="Income/Expense" name="income" id="income" value = {this.state.income} onChange = {this.onChange}/>   
+               <div class="form-group">
+    <select class="form-control" id="income" onChange = {this.dropdownChange}>
+      <option value="Income">Income</option>
+      <option value="Expense">Expense</option>
+    </select>
+  </div>
+                   {/* <Input type="text" placeholder="Income/Expense" name="income" id="income" value = {this.state.income} onChange = {this.onChange}/>    */}
                </FormGroup> 
                <FormGroup className="mb-3">
                    {/* <Label>Amount</Label> */}
