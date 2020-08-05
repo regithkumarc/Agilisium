@@ -71,10 +71,10 @@ class AddProduct extends React.Component{
         if(this.state.enableDisable){
              view = 
             <div>
-            <h4>Add Product</h4>
+            <h4>Add Item</h4>
             <Form className="login-form" onSubmit = {this.addProduct}>    
                <FormGroup className="mb-3">
-                   <Label>Description</Label>
+                   {/* <Label>Description</Label> */}
                    <Input type="text" 
                    placeholder="Description" 
                    name="description" 
@@ -83,18 +83,18 @@ class AddProduct extends React.Component{
                    onChange = {this.onChange}/> 
                </FormGroup>  
                <FormGroup className="mb-3">
-               <Label>Income/Expense</Label>
+               {/* <Label>Type</Label> */}
                    <Input type="text" placeholder="Income/Expense" name="income" id="income" value = {this.state.income} onChange = {this.onChange}/>   
                </FormGroup> 
                <FormGroup className="mb-3">
-                   <Label>Amount</Label>
+                   {/* <Label>Amount</Label> */}
                    <Input type="text" placeholder="Amount" name="amount" id="amount" value = {this.state.amount} onChange = {this.onChange}/>  
                </FormGroup> 
                <FormGroup className="mb-3">
-                   <Label>Summary</Label>
+                   {/* <Label>Summary</Label> */}
                    <Input type="text" placeholder="Summary" name="summary" id="summary" value = {this.state.summary} onChange = {this.onChange}/>  
                </FormGroup> 
-               <label>Date</label>
+               {/* <label>Date</label> */}
                <FormGroup className="mb-3">
                <DatePicker
                    selected={this.state.startDate}

@@ -5,6 +5,7 @@ import {getAllProductItem,removeproductItem} from './userFuction'
 import '../App.css'
 import { AiFillDelete } from "react-icons/ai";
 import {FaRegEdit} from 'react-icons/fa'
+import {MdAddBox} from 'react-icons/md'
 import { IconContext } from "react-icons";
 
 class ShowProducts extends React.Component {
@@ -47,7 +48,7 @@ class ShowProducts extends React.Component {
               <td>{product.startDate.toString().split("T")[0]}</td>
               <td>{product.description}</td>
               <td>{product.income}</td>
-              <td>{product.amount}</td>
+              <td><center>{product.amount}</center></td>
               <td>{product.summary}</td>
             <td>
             <IconContext.Provider
@@ -70,21 +71,30 @@ class ShowProducts extends React.Component {
 
     return (
       <div>
-        <h4>View products</h4>
+        {/* <h4>View products</h4> */}
+        {/* <div className="add_button">
+              <Button onClick = {() => this.props.addView()}>Add Item</Button>
+            </div> */}
+<div className="add_button">
+            <IconContext.Provider
+                      value={{ color: 'gray', size: '25px', }} >
+                      <MdAddBox onClick={() => this.props.addView()} />
+                    </IconContext.Provider> &nbsp;
+                    </div>
                   <Row>
                 <Col>
-                    <Card>
+                    {/* <Card>
                         <CardHeader>
                             <i className = "fa fa-align-justify"></i>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody> */}
 <Table>
     <thead>
       <tr>
         <th>S.No</th>
         <th>Date</th>
-        <th>Desc</th>
-        <th>Inc/Exp</th>
+        <th>Description</th>
+        <th>Type</th>
         <th>Amount</th>
         <th>Summary</th>
         <th>Action</th>
@@ -94,13 +104,10 @@ class ShowProducts extends React.Component {
       {items}
     </tbody>
   </Table>
-  </CardBody>
-                    </Card>
+  {/* </CardBody> */}
+                    {/* </Card> */}
                 </Col>
             </Row>
-            <div className="add_button">
-              <Button onClick = {() => this.props.addView()}>Add product</Button>
-            </div>
       </div>
     )
 }
