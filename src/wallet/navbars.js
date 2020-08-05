@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import '../App.css'
 
 class Navbars extends React.Component {
     render() {
@@ -11,9 +12,6 @@ class Navbars extends React.Component {
                 </button> */}
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <Link to="/home" className="nav-link">Home</Link>
-                        </li>
                         <li class="nav-item">
                             <Link to="/show-product" className="nav-link">My Wallet</Link>
                         </li>

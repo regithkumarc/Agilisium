@@ -20,6 +20,10 @@ Label {
   max-width: 330px;
 }
 
+.nav li{
+  size: 50px;
+ }
+
 
 /**
  * Grid

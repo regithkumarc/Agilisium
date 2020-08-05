@@ -77,7 +77,7 @@ class AddProduct extends React.Component {
         if (this.state.enableDisable) {
             view =
                 <div>
-                    <h4>Add Item</h4>
+                    <h6>Enter Details</h6>
                     <Form className="login-form" onSubmit={this.addProduct}>
                         <FormGroup className="mb-3">
                             {/* <Label>Description</Label> */}
