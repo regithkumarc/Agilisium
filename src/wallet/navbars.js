@@ -12,7 +12,7 @@ class Navbars extends React.Component {
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <Link to="/login" className="nav-link">Login</Link>
+                        <Link to="/home" className="nav-link">Home</Link>
                     </li>
                     <li class="nav-item">
                         <Link to="/show-product" className="nav-link">Products</Link>

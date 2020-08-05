@@ -27,8 +27,8 @@ export function removeproductItem(productItem) {
             if (productInfoList[i].serial_no === productItem.serial_no) {
                 console.log("productInfoList[i].serial_no",productInfoList[i].serial_no)
                 console.log("productInfoList[i].serial_no",productItem.serial_no)
-                var index = productInfoList.indexOf(i)
-                productInfoList.splice(index, 1);
+                //var index = productInfoList.indexOf(i)
+                productInfoList.splice(i, 1);
                 localStorage.setItem("productInfo", JSON.stringify(productInfoList))
                 return true;
             }
@@ -53,23 +53,6 @@ export function addProductDetails(product) {
     }
 }
 
-export function registerUserDetails(user) {
-    getAllProductItem();
-    //console.log("UserInfo : ", userInfo)
-    //let userArr = [];
-    if (productInfoList != null && productInfoList.length > 0) {
-        //userArr = userInfo
-        productInfoList.push(user);
-        localStorage.setItem("userInfo", JSON.stringify(productInfoList))
-        return "Registered Succesfully";
-    } else {
-        productInfoList = [];
-        productInfoList.push(user)
-        localStorage.setItem("userInfo", JSON.stringify(productInfoList))
-        return "Registered Succesfully";
-    }
-}
-
 export function checkUserExists(userName) {
     getAllProductItem();
     console.log(userName)
@@ -83,4 +66,32 @@ export function checkUserExists(userName) {
         }
     }
     return false;
+}
+
+export function addOrUpdateProductData(product) {
+    getAllProductItem();
+    var isFlag = false;
+    if (productInfoList != null && productInfoList.length > 0) {
+        for (let i = 0; i < productInfoList.length; i++) {
+            isFlag = false;
+            if (productInfoList[i].serial_no === product.serial_no) {
+                //var index = productInfoList.indexOf(i)
+                productInfoList.splice(i, 1);
+                productInfoList.push(product);
+                localStorage.setItem("productInfo", JSON.stringify(productInfoList))
+                isFlag = true;
+                break;
+            }
+        }
+
+        if (!isFlag) {
+            productInfoList.push(product);
+            localStorage.setItem("productInfo", JSON.stringify(productInfoList))
+        }
+    } else {
+        console.log("flag")
+        productInfoList = [];
+        productInfoList.push(product);
+        localStorage.setItem("productInfo", JSON.stringify(productInfoList));
+    }
 }
