@@ -80,6 +80,10 @@ class ShowProducts extends React.Component {
       currency: 'INR'
     }).format(value);
 
+    addView(){
+      this.props.addView();
+    }
+
   render() {
 
     //const item = {notes.length ? notes : <p>Default Markup</p>}
@@ -135,7 +139,7 @@ class ShowProducts extends React.Component {
            <span className="add_button"></span>
            <IconContext.Provider 
             value={{ color: 'gray', size: '25px', }} >
-            <MdAddBox onClick={() => this.props.addView()} />
+            <MdAddBox onClick={() => this.addView()} />
           </IconContext.Provider> &nbsp;
         </div>
         <div className="add_button">

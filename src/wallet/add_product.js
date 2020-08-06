@@ -83,7 +83,7 @@ class AddProduct extends React.Component {
                 summary: this.state.summary
             }
             addOrUpdateProductData(userDetails);
-            this.props.history.push('/show-product')
+            //this.props.history.push('/show-product')
 
             // console.log(this.state.startDate + " " +
             //             this.state.income + " " +
