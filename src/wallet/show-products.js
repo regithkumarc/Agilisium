@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row } from 'reactstrap';
+import { Col, Row, Label } from 'reactstrap';
 import { Table } from 'react-bootstrap';
 import { getAllProductItem, removeproductItem } from './userFuction'
 import '../App.css'
@@ -14,14 +14,38 @@ class ShowProducts extends React.Component {
     super(props);
 
     this.state = {
-      products: getAllProductItem()
+      products: getAllProductItem(),
+      totalIncome: 0,
+      totalExpense: 0,
+      totalBalance: 0
     }
 
     //console.log(getAllProductItem)
+    this.numberFormat = this.numberFormat.bind(this);
   }
 
   componentDidMount() {
-    this.setState({ products: getAllProductItem() })
+    let totalBalance = 0;
+    let totalIncome = 0;
+    let totalExpense = 0;
+    for (let i = 0; i < getAllProductItem().length; i++) {
+      if (getAllProductItem()[i].income === "Income") {
+        totalBalance = Number(totalBalance) + Number(getAllProductItem()[i].amount);
+        totalIncome = Number(totalIncome) + Number(getAllProductItem()[i].amount);
+      } else {
+        totalBalance = Number(totalBalance) - Number(getAllProductItem()[i].amount);
+        totalExpense = Number(totalExpense) + Number(getAllProductItem()[i].amount);
+      }
+    }
+    console.log("total balance", totalBalance);
+    console.log("total income", totalIncome);
+    console.log("total expense", totalExpense);
+    this.setState({
+      products: getAllProductItem(),
+      totalIncome: totalIncome,
+      totalExpense: totalExpense,
+      totalBalance: totalBalance
+    })
   }
 
   updateProduct(product) {
@@ -34,6 +58,12 @@ class ShowProducts extends React.Component {
     this.setState({ products: getAllProductItem() });
     console.log(this.state.products);
   }
+
+  numberFormat = (value) =>
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR'
+    }).format(value);
 
 
   render() {
@@ -48,7 +78,7 @@ class ShowProducts extends React.Component {
             <td>{product.startDate.toString().split("T")[0]}</td>
             <td>{product.description}</td>
             <td>{product.income}</td>
-            <td><center>{product.amount}</center></td>
+            <td><center>{this.numberFormat(product.amount)}</center></td>
             <td>{product.summary}</td>
             <td>
               <IconContext.Provider
@@ -69,6 +99,11 @@ class ShowProducts extends React.Component {
       items = <div><center>No rows found</center></div>
     }
 
+    //let styles;
+    // if(this.state.totalBalance < 0){
+    //   styles = style{{color : "red"}}
+    // }
+
     return (
       <div>
         {/* <h4>View products</h4> */}
@@ -76,10 +111,20 @@ class ShowProducts extends React.Component {
               <Button onClick = {() => this.props.addView()}>Add Item</Button>
             </div> */}
         <div className="add_button">
-          <IconContext.Provider
+        <Label>Total Balance :  </Label>&nbsp;&nbsp;
+          <Label style = {{fontWeight : "bold"}}>{this.state.totalBalance} </Label>&nbsp;&nbsp; 
+          <Label>Total Income :  </Label>&nbsp;&nbsp;
+          <Label style = {{color:"green",fontWeight : "bold"}}>{this.state.totalIncome} </Label>&nbsp;&nbsp;
+          <Label>Total Expense :  </Label>&nbsp;&nbsp; 
+           <Label style = {{color:"red",fontWeight : "bold"}}>{this.state.totalExpense} </Label>&nbsp;&nbsp; 
+           <span className="add_button"></span>
+           <IconContext.Provider 
             value={{ color: 'gray', size: '25px', }} >
             <MdAddBox onClick={() => this.props.addView()} />
           </IconContext.Provider> &nbsp;
+        </div>
+        <div className="add_button">
+          
                     </div>
         <Row>
           <Col>
