@@ -101,7 +101,7 @@ class AddProduct extends React.Component {
         let view =
         <div>
             <h6>Add Item</h6>
-            <Form novalidate className="login-form" onSubmit={this.handleSubmit}>
+            <Form noValidate className="login-form" onSubmit={this.handleSubmit}>
                 <FormGroup className="mb-3">
                     {/* <Label>Description</Label> */}
                     <Input type="text" required

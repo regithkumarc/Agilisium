@@ -67,7 +67,7 @@ class UpdateProduct extends React.Component {
     render() {
         let view = <div>
         <h6>Update Item</h6>
-        <Form novalidate className="login-form" onSubmit={this.updateProduct}>
+        <Form noValidate className="login-form" onSubmit={this.updateProduct}>
             <FormGroup className="mb-3">
                 {/* <Label>Description</Label> */}
                 <Input type="text" required
