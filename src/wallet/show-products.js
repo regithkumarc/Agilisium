@@ -22,9 +22,15 @@ class ShowProducts extends React.Component {
 
     //console.log(getAllProductItem)
     this.numberFormat = this.numberFormat.bind(this);
+    this.getAllCounts = this.getAllCounts.bind(this);
+    this.removeConfirm = this.removeConfirm.bind(this);
   }
 
   componentDidMount() {
+    this.getAllCounts();
+  }
+
+  getAllCounts(){
     let totalBalance = 0;
     let totalIncome = 0;
     let totalExpense = 0;
@@ -54,9 +60,18 @@ class ShowProducts extends React.Component {
   }
 
   removeProduct(product) {
-    removeproductItem(product);
-    this.setState({ products: getAllProductItem() });
-    console.log(this.state.products);
+    this.removeConfirm(product); 
+  }
+
+  removeConfirm(product) {
+    var deletePopup = window.confirm("Do you want to delete this item?");
+    console.log(deletePopup);
+    if (deletePopup) {
+      removeproductItem(product);
+      this.setState({ products: getAllProductItem() });
+      console.log(this.state.products);
+      this.getAllCounts();
+    }
   }
 
   numberFormat = (value) =>
@@ -65,21 +80,21 @@ class ShowProducts extends React.Component {
       currency: 'INR'
     }).format(value);
 
-
   render() {
 
     //const item = {notes.length ? notes : <p>Default Markup</p>}
     let items;
     if (this.state.products.length > 0) {
-      items = this.state.products.map(product => {
+      items = this.state.products.map((product,index) => {
         return (
           <tr key={product.serial_no}>
+            {/* <td>{index+1}</td> */}
             <td>{product.serial_no}</td>
             <td>{product.startDate.toString().split("T")[0]}</td>
             <td>{product.description}</td>
             <td>{product.income}</td>
             <td><center>{this.numberFormat(product.amount)}</center></td>
-            <td>{product.summary}</td>
+            {/* <td>{product.summary}</td> */}
             <td>
               <IconContext.Provider
                 value={{ color: 'gray', size: '25px', }} >
@@ -111,12 +126,12 @@ class ShowProducts extends React.Component {
               <Button onClick = {() => this.props.addView()}>Add Item</Button>
             </div> */}
         <div className="add_button">
-        <Label>Total Balance :  </Label>&nbsp;&nbsp;
-          <Label style = {{fontWeight : "bold"}}>{this.state.totalBalance} </Label>&nbsp;&nbsp; 
-          <Label>Total Income :  </Label>&nbsp;&nbsp;
-          <Label style = {{color:"green",fontWeight : "bold"}}>{this.state.totalIncome} </Label>&nbsp;&nbsp;
-          <Label>Total Expense :  </Label>&nbsp;&nbsp; 
-           <Label style = {{color:"red",fontWeight : "bold"}}>{this.state.totalExpense} </Label>&nbsp;&nbsp; 
+        <Label>Balance :  </Label>&nbsp;&nbsp;
+          <Label style = {{fontWeight : "bold"}}>{this.numberFormat(this.state.totalBalance)} </Label>&nbsp;&nbsp; 
+          <Label>Income :  </Label>&nbsp;&nbsp;
+          <Label style = {{color:"green",fontWeight : "bold"}}>{this.numberFormat(this.state.totalIncome)} </Label>&nbsp;&nbsp;
+          <Label>Expense(s) :  </Label>&nbsp;&nbsp; 
+           <Label style = {{color:"red",fontWeight : "bold"}}>{this.numberFormat(this.state.totalExpense)} </Label>&nbsp;&nbsp; 
            <span className="add_button"></span>
            <IconContext.Provider 
             value={{ color: 'gray', size: '25px', }} >
@@ -136,12 +151,13 @@ class ShowProducts extends React.Component {
             <Table>
               <thead>
                 <tr>
-                  <th>S.No</th>
+                  {/* <th>S.No</th> */}
+                  <th>Item ID</th>
                   <th>Date</th>
                   <th>Description</th>
                   <th>Type</th>
                   <th>Amount</th>
-                  <th>Summary</th>
+                  {/* <th>Summary</th> */}
                   <th>Action</th>
                 </tr>
               </thead>

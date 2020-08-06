@@ -14,32 +14,48 @@ class Products extends React.Component {
     this.state = {
       editStatus: false,
       productDetails: [],
-      addStatus: false
+      addStatus: false,
+      enableDisable: false
     }
     this.buttonView = this.buttonView.bind(this);
     this.addView = this.addView.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   buttonView(product) {
-    this.setState({ editStatus: true })
+    console.log("button view")
+    this.setState({ editStatus: true,
+                    addStatus: false,
+                    enableDisable: true })
     this.setState({ productDetails: product })
   }
 
   addView() {
+    console.log("addview")
     //console.log(this.state.addStatus)
-    this.setState({ addStatus: true })
+    this.setState({ addStatus: true,
+                    editStatus: false,
+                    enableDisable: true })
     //console.log(this.state.addStatus)
+  }
+
+  cancel() {
+    this.setState({ enableDisable: false })
   }
 
   render() {
     let view;
-    if (this.state.editStatus) {
-      view = <UpdateProduct productDetails={this.state.productDetails}></UpdateProduct>
-    } else if (this.state.addStatus) {
-      view = <AddProduct enableDisable={true}></AddProduct>
+    if (this.state.enableDisable) {
+      if (this.state.editStatus) {
+        view = <UpdateProduct cancel={this.cancel} productDetails={this.state.productDetails}></UpdateProduct>
+      } else if (this.state.addStatus) {
+        view = <AddProduct cancel={this.cancel}></AddProduct>
+      }
     }
     return (
       <div className="container"><br></br>
+      <h3 style = {{color : "grey",textAlign : "left",fontWeight : "bold"}}>My Wallet</h3>
+        <div style = {{margin : "30px"}}>
         <div className="flex-row">
           {/* <IconContext.Provider
                     value={{ color: 'gray', size: '30px' }} >
@@ -53,6 +69,7 @@ class Products extends React.Component {
               <ShowProducts addView={this.addView} buttonClick={this.buttonView}></ShowProducts>
             </div>
           </div>
+        </div>
         </div>
       </div>
     )

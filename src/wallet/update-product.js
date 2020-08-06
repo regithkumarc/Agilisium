@@ -15,7 +15,7 @@ class UpdateProduct extends React.Component {
             updateIncome: this.props.productDetails.income,
             updateAmount: this.props.productDetails.amount,
             updateDescription: this.props.productDetails.description,
-            updateSummary: this.props.productDetails.summary
+            updateSummary: this.props.productDetails.summary,
         }
 
         //console.log(this.state.startDate)
@@ -37,7 +37,7 @@ class UpdateProduct extends React.Component {
     };
 
     dropdownChange(e) {
-        this.setState({updateIncome : e.target.value})
+        this.setState({ updateIncome: e.target.value })
     }
     updateProduct() {
         const productDetails = {
@@ -51,62 +51,80 @@ class UpdateProduct extends React.Component {
         addOrUpdateProductData(productDetails)
         console.log("Product Updated Successfully")
     }
+
+    handleSubmit = (event) => {
+        console.log(event)
+        const form = event.currentTarget;
+        console.log(form.checkValidity())
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.setState({ inputValidation: true });
+        } else {
+
+        }
+    }
     render() {
+        let view = <div>
+        <h6>Update Item</h6>
+        <Form novalidate className="login-form" onSubmit={this.updateProduct}>
+            <FormGroup className="mb-3">
+                {/* <Label>Description</Label> */}
+                <Input type="text" required
+                    placeholder="Description"
+                    name="updateDescription"
+                    id="updateDescription"
+                    value={this.state.updateDescription}
+                    onChange={this.onChange} />
+            </FormGroup>
+            <FormGroup className="mb-3">
+                {/* <Label>Income/Expense</Label>
+<Input type="text"
+    placeholder="Income/Expense"
+    name="updateIncome"
+    id="updateIncome"
+    value={this.state.updateIncome}
+    onChange={this.onChange} /> */}
+                <div class="form-group">
+                    <select class="form-control" value={this.state.updateIncome} name="updateIncome" id="updateIncome" onChange={this.dropdownChange}>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                </div>
+            </FormGroup>
+            <FormGroup className="mb-3">
+                {/* <Label>Amount</Label> */}
+                <Input type="number" required
+                    placeholder="Amount"
+                    name="updateAmount"
+                    id="updateAmount"
+                    value={this.state.updateAmount}
+                    onChange={this.onChange} />
+            </FormGroup>
+            {/* <FormGroup className="mb-3">
+                <Label>Summary</Label>
+                <Input type="text"
+                    placeholder="Summary"
+                    name="updateSummary"
+                    id="updateSummary"
+                    value={this.state.updateSummary}
+                    onChange={this.onChange} />
+            </FormGroup> */}
+            {/* <label>Date</label> */}
+            <FormGroup className="mb-3">
+                <DatePicker
+                    selected={this.state.updateStartDate}
+                    onChange={this.handleChange}
+                />
+            </FormGroup>
+            <Button value="submit">Update</Button>&nbsp;&nbsp;
+            <Button onClick={this.props.cancel}>Cancel</Button>
+        </Form>
+    </div>
+
         return (
             <div>
-                <h6>Update Product</h6>
-                <Form className="login-form" onSubmit={this.updateProduct}>
-                    <FormGroup className="mb-3">
-                        {/* <Label>Description</Label> */}
-                        <Input type="text"
-                            placeholder="Description"
-                            name="updateDescription"
-                            id="updateDescription"
-                            value={this.state.updateDescription}
-                            onChange={this.onChange} />
-                    </FormGroup>
-                    <FormGroup className="mb-3">
-                        {/* <Label>Income/Expense</Label>
-                        <Input type="text"
-                            placeholder="Income/Expense"
-                            name="updateIncome"
-                            id="updateIncome"
-                            value={this.state.updateIncome}
-                            onChange={this.onChange} /> */}
-                                                        <div class="form-group">
-                                <select class="form-control" value = {this.state.updateIncome} name="updateIncome" id="updateIncome" onChange={this.dropdownChange}>
-                                    <option value="Income">Income</option>
-                                    <option value="Expense">Expense</option>
-                                </select>
-                            </div>
-                    </FormGroup>
-                    <FormGroup className="mb-3">
-                        {/* <Label>Amount</Label> */}
-                        <Input type="text"
-                            placeholder="Amount"
-                            name="updateAmount"
-                            id="updateAmount"
-                            value={this.state.updateAmount}
-                            onChange={this.onChange} />
-                    </FormGroup>
-                    <FormGroup className="mb-3">
-                        {/* <Label>Summary</Label> */}
-                        <Input type="text"
-                            placeholder="Summary"
-                            name="updateSummary"
-                            id="updateSummary"
-                            value={this.state.updateSummary}
-                            onChange={this.onChange} />
-                    </FormGroup>
-                    {/* <label>Date</label> */}
-                    <FormGroup className="mb-3">
-                        <DatePicker
-                            selected={this.state.updateStartDate}
-                            onChange={this.handleChange}
-                        />
-                    </FormGroup>
-                    <Button value="submit">Update</Button>
-                </Form>
+                {view}
             </div>
         )
     }
